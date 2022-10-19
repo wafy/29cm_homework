@@ -15,8 +15,7 @@ public class Item {
 
     @Id
     @GeneratedValue
-    private  Long id;
-    private int itemNo;
+    private Long itemNo;
     private String itemName;
     private int price;
     private int stock;
@@ -28,10 +27,14 @@ public class Item {
     }
 
     @Builder
-    public Item(int itemNo, String itemName, int price, int stock) {
+    public Item(Long itemNo, String itemName, int price, int stock) {
         this.itemNo = itemNo;
         this.itemName = itemName;
         this.price = price;
         this.stock = stock;
+    }
+
+    public static Item of(Long itemNo, String itemName, int price, int stock) {
+        return new Item(itemNo, itemName, price, stock);
     }
 }
