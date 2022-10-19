@@ -4,6 +4,7 @@ import kr.co._29cm.homework.core.item.Item;
 import kr.co._29cm.homework.core.csv.CsvCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.List;
@@ -16,6 +17,7 @@ public class ItemCreator {
 
     private static final String CSV_FILE_NAME = "items_data.csv";
 
+    @Transactional
     public void create() {
         List<Item> itemList = loadCsvItem();
         itemRepository.saveAll(itemList);

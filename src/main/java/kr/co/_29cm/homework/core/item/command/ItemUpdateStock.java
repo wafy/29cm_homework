@@ -18,7 +18,9 @@ public class ItemUpdateStock {
     @Transactional
     public void updateStock(List<ItemNoAndStock> itemNoAndStockList) throws SoldOutException {
         for (ItemNoAndStock itemNoAndStock : itemNoAndStockList) {
-            Item findItem = itemRepository.findById(itemNoAndStock.getItemNo()).orElseThrow();
+            Item findItem = itemRepository.findById(itemNoAndStock.getItemNo()).orElseThrow(
+                    () -> new NoSuchItemException("요청한 상품번호가 존재하지 않습니다 :"+ itemNoAndStock.getItemNo()));
+
             log.info("item 조회 성공 = {}", findItem.getItemNo());
             int stock = 0;
             try {
