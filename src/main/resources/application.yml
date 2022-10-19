@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:test
+#    url: jdbc:h2:mem:test
+    url: jdbc:h2:tcp://localhost/~/test
     username: sa
   jpa:
     hibernate:
@@ -10,3 +11,6 @@ spring:
 logging:
   level:
     org.springframework.transaction.interceptor: TRACE
+    org.springframework.jdbc: debug
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
