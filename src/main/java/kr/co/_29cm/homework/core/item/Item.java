@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.core.item;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ public class Item {
     public Item() {
     }
 
+    @Builder
     public Item(int itemNo, String itemName, int price, int stock) {
         this.itemNo = itemNo;
         this.itemName = itemName;
