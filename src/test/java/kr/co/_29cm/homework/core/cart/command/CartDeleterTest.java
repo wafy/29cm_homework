@@ -36,6 +36,19 @@ class CartDeleterTest extends TestSupplier {
                 Assertions.assertThat(result).isEqualTo(1);
             }
         }
+
+        @Nested
+        @DisplayName("존재하지 않는 sessionId 카트 삭제 요청이면")
+        class Context_none_exist_sessionId {
+
+            @Test
+            @DisplayName("삭제를 처리하지 못하고 0을 리턴한다")
+            void it_none_delete() {
+                String noneExistSessionId = "XXXXXXX";
+                long result = getCartDeleter().deleteBySessionId(noneExistSessionId);
+                Assertions.assertThat(result).isEqualTo(0);
+            }
+        }
     }
 
 
