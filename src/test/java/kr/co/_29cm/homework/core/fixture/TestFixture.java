@@ -53,6 +53,14 @@ public class TestFixture {
                 1);
     }
 
+    public static Cart _카트_캠핑덕(String sessionId, int quantity) {
+        return Cart.of(sessionId,
+                _캠핑덕_우드롤테이블_상품번호,
+                _캠핑덕_우드롤테이블_상품명,
+                _캠핑덕_우드롤테이블_가격,
+                quantity);
+    }
+
     public static Cart _초콜릿(String sessionId) {
         return Cart.of(sessionId,
                 _무설탕_프로틴_초콜릿_틴볼스_상품번호,

@@ -9,6 +9,7 @@ import kr.co._29cm.homework.core.cart.query.CartSearcherRepository;
 import kr.co._29cm.homework.core.csv.CsvCreator;
 import kr.co._29cm.homework.core.item.command.ItemCreator;
 import kr.co._29cm.homework.core.item.command.ItemRepository;
+import kr.co._29cm.homework.core.item.command.ItemUpdater;
 import kr.co._29cm.homework.core.item.query.ItemSearcher;
 import kr.co._29cm.homework.core.item.query.ItemSearcherRepository;
 import lombok.AccessLevel;
@@ -44,6 +45,7 @@ public abstract class TestSupplier implements ForTestOnly {
     private CartCreator cartCreator;
     private CartSearcher cartSearcher;
     private CartDeleter cartDeleter;
+    private ItemUpdater itemUpdater;
 
 
     protected CsvCreator getCsvCreator() {
@@ -68,6 +70,10 @@ public abstract class TestSupplier implements ForTestOnly {
 
     protected CartDeleter getCartDeleter() {
         return cartDeleter == null ? new CartDeleter(cartRepository) : cartDeleter;
+    }
+
+    protected ItemUpdater getItemUpdater() {
+        return itemUpdater == null ? new ItemUpdater(itemRepository, cartSearcherRepository) : itemUpdater;
     }
 
     protected void itemDeleteAll() {
