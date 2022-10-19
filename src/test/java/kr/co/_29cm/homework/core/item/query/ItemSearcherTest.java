@@ -8,11 +8,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 @DisplayName("ItemSearcher class")
-@DataJpaTest
+@SpringBootTest
 class ItemSearcherTest extends TestSupplier {
 
     @Nested

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static kr.co._29cm.homework.core.cart.query.DeliveryCharge.getOrderAmount;
+
 @Service
 @RequiredArgsConstructor
 public class CartSearcher {
@@ -15,4 +17,27 @@ public class CartSearcher {
     public List<Cart> findBySessionId(String sessionId) {
         return searcherRepository.findBySessionId(sessionId);
     }
+
+
+    /**
+     * 주문금액 : 카트에 담긴 상품금액 + 주문 갯수
+     * 배송비 : 주문금액 < 5만원 일 경우 2500
+     * 결제금액 : 주문금액 + 배송비
+     * @param sessionId 세션 아이디
+     */
+    public CartDto totalCart(String sessionId) {
+        // 카트에 담긴 상품 목록
+        List<Cart> cartList = findBySessionId(sessionId);
+
+        // 주문 금액
+        int orderAmount = cartList.stream()
+                .map(d->d.getPrice() * d.getQuantity())
+                .reduce(0, Integer::sum);
+
+        // 결제 지금액 (주문금액 + 배송비)
+        int paymentAmount = getOrderAmount(orderAmount);
+
+        return new CartDto(cartList, orderAmount, paymentAmount);
+    }
+
 }

@@ -45,7 +45,6 @@ public abstract class TestSupplier implements ForTestOnly {
     private CartSearcher cartSearcher;
 
 
-
     protected CsvCreator getCsvCreator() {
         return csvCreator == null ? new CsvCreator(resourceLoader) : csvCreator;
     }

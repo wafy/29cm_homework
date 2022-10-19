@@ -13,25 +13,24 @@ public class Cart {
     @Id
     @GeneratedValue
     private Long cartId;
-
     private String sessionId;
-
-    @ManyToOne
-    @JoinColumn(name = "itemNo")
-    private Item item;
-
+    private Long itemNo;
+    private String itemName;
+    private int price;
     private int quantity;
 
     public Cart() {
     }
 
-    private Cart(Item item, String sessionId, int quantity) {
-        this.item = item;
+    private Cart(String sessionId, Long itemNo, String itemName, int price, int quantity) {
         this.sessionId = sessionId;
+        this.itemNo = itemNo;
+        this.itemName = itemName;
+        this.price = price;
         this.quantity = quantity;
     }
 
-    public static Cart of(Item item, String sessionId, int quantity) {
-        return new Cart(item, sessionId, quantity);
+    public static Cart of(String sessionId, Long itemNo, String itemName, int price, int quantity) {
+        return new Cart(sessionId, itemNo, itemName, price, quantity);
     }
 }
