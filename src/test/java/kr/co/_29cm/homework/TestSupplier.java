@@ -2,13 +2,13 @@ package kr.co._29cm.homework;
 
 import kr.co._29cm.homework.axiom.target.ForTestOnly;
 import kr.co._29cm.homework.core.cart.command.CartCreator;
+import kr.co._29cm.homework.core.cart.command.CartDeleter;
 import kr.co._29cm.homework.core.cart.command.CartRepository;
 import kr.co._29cm.homework.core.cart.query.CartSearcher;
-import kr.co._29cm.homework.core.cart.query.CartSearcherCustomRepositoryImpl;
 import kr.co._29cm.homework.core.cart.query.CartSearcherRepository;
+import kr.co._29cm.homework.core.csv.CsvCreator;
 import kr.co._29cm.homework.core.item.command.ItemCreator;
 import kr.co._29cm.homework.core.item.command.ItemRepository;
-import kr.co._29cm.homework.core.csv.CsvCreator;
 import kr.co._29cm.homework.core.item.query.ItemSearcher;
 import kr.co._29cm.homework.core.item.query.ItemSearcherRepository;
 import lombok.AccessLevel;
@@ -43,6 +43,7 @@ public abstract class TestSupplier implements ForTestOnly {
     private ItemSearcher itemSearcher;
     private CartCreator cartCreator;
     private CartSearcher cartSearcher;
+    private CartDeleter cartDeleter;
 
 
     protected CsvCreator getCsvCreator() {
@@ -63,6 +64,10 @@ public abstract class TestSupplier implements ForTestOnly {
 
     protected CartSearcher getCartSearcher() {
         return cartSearcher == null ? new CartSearcher(cartSearcherRepository) : cartSearcher;
+    }
+
+    protected CartDeleter getCartDeleter() {
+        return cartDeleter == null ? new CartDeleter(cartRepository) : cartDeleter;
     }
 
     protected void itemDeleteAll() {
