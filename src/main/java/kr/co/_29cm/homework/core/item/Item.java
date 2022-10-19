@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,7 +13,6 @@ import javax.persistence.Table;
 public class Item {
 
     @Id
-    @GeneratedValue
     private Long itemNo;
     private String itemName;
     private int price;
