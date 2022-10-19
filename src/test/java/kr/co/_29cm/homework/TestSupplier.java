@@ -9,6 +9,7 @@ import kr.co._29cm.homework.core.cart.query.CartSearcherRepository;
 import kr.co._29cm.homework.core.csv.CsvCreator;
 import kr.co._29cm.homework.core.item.command.ItemCreator;
 import kr.co._29cm.homework.core.item.command.ItemRepository;
+import kr.co._29cm.homework.core.item.command.ItemUpdateStock;
 import kr.co._29cm.homework.core.item.command.ItemUpdater;
 import kr.co._29cm.homework.core.item.query.ItemSearcher;
 import kr.co._29cm.homework.core.item.query.ItemSearcherRepository;
@@ -46,6 +47,7 @@ public abstract class TestSupplier implements ForTestOnly {
     private CartSearcher cartSearcher;
     private CartDeleter cartDeleter;
     private ItemUpdater itemUpdater;
+    private ItemUpdateStock itemUpdateStock;
 
 
     protected CsvCreator getCsvCreator() {
@@ -73,7 +75,11 @@ public abstract class TestSupplier implements ForTestOnly {
     }
 
     protected ItemUpdater getItemUpdater() {
-        return itemUpdater == null ? new ItemUpdater(itemRepository, cartSearcherRepository) : itemUpdater;
+        return itemUpdater == null ? new ItemUpdater(cartSearcherRepository, getItemUpdateStock()) : itemUpdater;
+    }
+
+    protected ItemUpdateStock getItemUpdateStock() {
+        return itemUpdateStock == null ? new ItemUpdateStock(itemRepository) : itemUpdateStock;
     }
 
     protected void itemDeleteAll() {

@@ -45,9 +45,9 @@ public class Item {
      * @throws SoldOutException
      */
     public int stockDeduction(int quantity) throws SoldOutException {
-        if ((this.stock - quantity) <= 0) {
-            throw new SoldOutException("재고가 부족합니다.");
+        if ((this.stock - quantity) >= 0) {
+            return this.stock - quantity;
         }
-        return this.stock - quantity;
+        throw new SoldOutException("재고가 부족합니다.");
     }
 }
