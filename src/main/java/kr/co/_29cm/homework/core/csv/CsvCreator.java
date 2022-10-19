@@ -36,7 +36,7 @@ public class CsvCreator {
             csvParser = CSVParser.parse(path, StandardCharsets.UTF_8, csvFormat);
             for(CSVRecord record: csvParser) {
                 itemList.add(Item.builder()
-                                .itemNo(Integer.parseInt(record.get("상품번호")))
+                                .itemNo(Long.parseLong(record.get("상품번호")))
                                 .itemName(record.get("상품명"))
                                 .price(Integer.parseInt(record.get("판매가격")))
                                 .stock(Integer.parseInt(record.get("재고수량")))
