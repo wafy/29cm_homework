@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.core.item.csv;
+package kr.co._29cm.homework.core.csv;
 
 public class NotFoundCsvFileException extends RuntimeException {
 
