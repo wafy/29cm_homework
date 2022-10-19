@@ -65,4 +65,12 @@ public abstract class TestSupplier implements ForTestOnly {
     protected CartSearcher getCartSearcher() {
         return cartSearcher == null ? new CartSearcher(cartSearcherRepository) : cartSearcher;
     }
+
+    protected void itemDeleteAll() {
+        itemRepository.deleteAll();
+    }
+
+    protected void cartDeleteAll() {
+        cartRepository.deleteAll();
+    }
 }

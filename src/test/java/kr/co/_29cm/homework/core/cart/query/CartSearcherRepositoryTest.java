@@ -4,10 +4,7 @@ import kr.co._29cm.homework.TestSupplier;
 import kr.co._29cm.homework.core.cart.Cart;
 import kr.co._29cm.homework.core.fixture.TestFixture;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -42,6 +39,12 @@ class CartSearcherTest extends TestSupplier {
             void it_returns_saved_cart() {
                 List<Cart> resultList = getCartSearcher().findBySessionId(givenSessionId);
                 Assertions.assertThat(resultList.size()).isEqualTo(3);
+            }
+
+            @AfterEach
+            void after() {
+                cartDeleteAll();
+                itemDeleteAll();
             }
         }
     }
