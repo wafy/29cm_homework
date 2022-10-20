@@ -1,7 +1,7 @@
 package kr.co._29cm.homework.consts;
 
 public enum InputType {
-    ORDER("O"), QUIT("Q");
+    ORDER("o"), QUIT("q");
 
 
     private final String value;

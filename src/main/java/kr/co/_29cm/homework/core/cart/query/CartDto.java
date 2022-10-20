@@ -13,11 +13,13 @@ public class CartDto {
     private final List<Cart> cartList;
     private final int orderAmount;
     private final int paymentAmount;
+    private final int deliveryCharge;
 
-    public CartDto(List<Cart> cartList, int orderAmount, int paymentAmount) {
+    public CartDto(List<Cart> cartList, int orderAmount, int paymentAmount, int deliveryCharge) {
         this.cartList = cartList;
         this.orderAmount = orderAmount;
         this.paymentAmount = paymentAmount;
+        this.deliveryCharge = deliveryCharge;
     }
 
 

@@ -14,7 +14,6 @@ import java.util.UUID;
 import java.util.concurrent.*;
 
 import static kr.co._29cm.homework.core.fixture.TestFixture._카트_캠핑덕;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @DisplayName("ItemUpdate class")
