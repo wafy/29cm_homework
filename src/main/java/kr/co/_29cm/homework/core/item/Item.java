@@ -20,6 +20,8 @@ public class Item {
     private int price;
     private int stock;
 
+
+
     /**
      * jpa가 필요로 합니다.
      */
@@ -44,10 +46,10 @@ public class Item {
      * @return
      * @throws SoldOutException
      */
-    public int stockDeduction(int quantity) throws SoldOutException {
-        if ((this.stock - quantity) >= 0) {
-            return this.stock - quantity;
+    public void decreaseStock(int quantity) {
+        if (this.stock - quantity < 0) {
+            throw new SoldOutException("재고가 부족합니다.");
         }
-        throw new SoldOutException("재고가 부족합니다.");
+        this.stock -= quantity;
     }
 }

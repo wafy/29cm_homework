@@ -16,8 +16,10 @@ public class ItemSearcher {
         return itemSearcherRepository.findAll();
     }
 
-    public Item findByItemId(Long itemNo) {
+    public Item findByItemNo(Long itemNo) {
         return itemSearcherRepository.findById(itemNo).orElseThrow();
     }
+
+
 
 }

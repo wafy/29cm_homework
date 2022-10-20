@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class ItemUpdater {
     private final CartSearcherRepository cartSearcherRepository;
     private final ItemUpdateStock itemUpdateStock;
 
+    @Transactional
     public void update(String sessionId) throws SoldOutException {
         log.info("itemNo와 quantity 조회");
         List<ItemNoAndStock> itemNoAndStockList = itemNoAndStocks(sessionId);
@@ -30,13 +30,11 @@ public class ItemUpdater {
                 .stream()
                 .collect(Collectors.groupingByConcurrent(Cart::getItemNo))
                 .entrySet().stream()
-                .map(entry -> {
-                    return new ItemNoAndStock(
-                            entry.getKey(),
-                            entry.getValue().stream()
-                                    .map(Cart::getQuantity)
-                                    .reduce(0, Integer::sum));
-                })
+                .map(entry -> new ItemNoAndStock(
+                        entry.getKey(),
+                        entry.getValue().stream()
+                                .map(Cart::getQuantity)
+                                .reduce(0, Integer::sum)))
                 .collect(Collectors.toList());
     }
 

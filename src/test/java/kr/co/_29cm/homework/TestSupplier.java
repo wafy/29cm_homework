@@ -79,7 +79,7 @@ public abstract class TestSupplier implements ForTestOnly {
     }
 
     protected ItemUpdateStock getItemUpdateStock() {
-        return itemUpdateStock == null ? new ItemUpdateStock(itemRepository) : itemUpdateStock;
+        return itemUpdateStock == null ? new ItemUpdateStock(itemRepository, getItemSearcher()) : itemUpdateStock;
     }
 
     protected void itemDeleteAll() {

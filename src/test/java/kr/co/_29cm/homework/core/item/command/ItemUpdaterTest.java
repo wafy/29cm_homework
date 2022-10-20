@@ -10,9 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static kr.co._29cm.homework.core.fixture.TestFixture._카트_캠핑덕;
 
@@ -96,51 +93,13 @@ class ItemUpdaterTest extends TestSupplier {
                 @DisplayName("주문수량 만큼 재고를 차감한다")
                 void it_returns() throws SoldOutException {
                     getItemUpdater().update(givenSessionId);
-                    Item resultItem = getItemSearcher().findByItemId(cart.getItemNo());
+                    Item resultItem = getItemSearcher().findByItemNo(cart.getItemNo());
                     Assertions.assertThat(resultItem.getStock()).isEqualTo(0);
                 }
 
                 @AfterEach
                 void after() {
                     getCartDeleter().deleteBySessionId(givenSessionId);
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("[동시성 테스트] 여러명의 사용자가 동시에 재고 차감을 요청할 경우")
-        class Context_concurrency {
-
-            @Nested
-            @DisplayName("재고(7)보다 구매 수량이 클 경우")
-            class Context_request_multi_user {
-                private int THREAD_COUNT = 3;
-                private ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
-                private CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
-
-                @BeforeEach
-                void init() {
-                    getItemCreator().create();
-                }
-
-                @Test
-                @DisplayName("SoldOutException 을 던진다")
-                @Transactional
-                void it_throws_exception() throws InterruptedException {
-
-                    for(int i = 0; i < 10; i++) {
-                        executorService.execute(() -> {
-                            String givenSessionId = UUID.randomUUID().toString();
-                            getCartCreator().create(_카트_캠핑덕(givenSessionId, 2));
-                            try {
-                                getItemUpdater().update(givenSessionId);
-                            } catch (SoldOutException | NoSuchItemException e) {
-                                throw new RuntimeException(e.getMessage());
-                            }
-                            latch.countDown();
-                        });
-                        latch.await();
-                    }
                 }
             }
         }
