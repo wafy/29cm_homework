@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class CartCreator {
     private final CartRepository cartRepository;
 
-    public Cart create(Cart cart) {
+    public Cart add(Cart cart) {
         return cartRepository.save(cart);
     }
 }

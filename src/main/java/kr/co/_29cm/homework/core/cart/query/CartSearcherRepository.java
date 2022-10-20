@@ -7,5 +7,4 @@ import java.util.List;
 public interface CartSearcherRepository {
 
     List<Cart> findBySessionId(String sessionId);
-
 }

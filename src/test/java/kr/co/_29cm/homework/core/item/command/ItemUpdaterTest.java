@@ -39,8 +39,8 @@ class ItemUpdaterTest extends TestSupplier {
 
                 @BeforeEach
                 void init() {
-                    getCartCreator().create(_카트_캠핑덕(givenSessionId, 2));
-                    getCartCreator().create(_카트_캠핑덕(givenSessionId, 1));
+                    getCartCreator().add(_카트_캠핑덕(givenSessionId, 2));
+                    getCartCreator().add(_카트_캠핑덕(givenSessionId, 1));
                 }
 
                 @Test
@@ -62,7 +62,7 @@ class ItemUpdaterTest extends TestSupplier {
 
                 @BeforeEach
                 void init() {
-                    getCartCreator().create(_카트_캠핑덕(givenSessionId, 8));
+                    getCartCreator().add(_카트_캠핑덕(givenSessionId, 8));
                 }
 
                 @Test
@@ -86,7 +86,7 @@ class ItemUpdaterTest extends TestSupplier {
 
                 @BeforeEach
                 void init() {
-                    cart = getCartCreator().create(_카트_캠핑덕(givenSessionId, 7));
+                    cart = getCartCreator().add(_카트_캠핑덕(givenSessionId, 7));
                 }
 
                 @Test

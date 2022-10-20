@@ -21,7 +21,6 @@ public class Item {
     private int stock;
 
 
-
     /**
      * jpa가 필요로 합니다.
      */
@@ -42,7 +41,8 @@ public class Item {
 
     /**
      * 현재 재고 수량이 0이거나 주문수량의 차이가 0보다 작으면 예외 발생
-     * @param  quantity 주문 수량
+     *
+     * @param quantity 주문 수량
      * @return
      * @throws SoldOutException
      */
@@ -51,5 +51,13 @@ public class Item {
             throw new SoldOutException("재고가 부족합니다.");
         }
         this.stock -= quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "상품번호=" + itemNo +
+                ", 상품명='" + itemName + '\'' +
+                ", 가격=" + price +
+                ", 재고=" + stock+"\n";
     }
 }

@@ -1,26 +1,26 @@
 package kr.co._29cm.homework.core.order.command;
 
+import kr.co._29cm.homework.core.cart.command.CartDeleter;
+import kr.co._29cm.homework.core.item.command.ItemUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class OrderCreator {
-    private final OrderRepository orderRepository;
+    private final ItemUpdater itemUpdater;
+    private final CartDeleter cartDeleter;
 
     /**
      * Item 에서 주문수량 만큼  재고 차감 -> 재고수량 체크
      * Cart 삭제
-     * Order 등록
      * @param sessionId 카트세션아이디
      */
+    @Transactional
     public void create(String sessionId) {
-        //item 에서 재고 차감
-
-        //
-
+        itemUpdater.update(sessionId);
+        cartDeleter.deleteBySessionId(sessionId);
     }
 }

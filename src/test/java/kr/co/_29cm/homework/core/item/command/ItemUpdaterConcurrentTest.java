@@ -1,9 +1,6 @@
 package kr.co._29cm.homework.core.item.command;
 
 import kr.co._29cm.homework.TestSupplier;
-import kr.co._29cm.homework.core.fixture.TestFixture;
-import kr.co._29cm.homework.core.item.Item;
-import kr.co._29cm.homework.core.item.SoldOutException;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,15 +8,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 import java.util.concurrent.*;
 
 import static kr.co._29cm.homework.core.fixture.TestFixture._카트_캠핑덕;
-import static kr.co._29cm.homework.core.fixture.TestFixture._캠핑덕_우드롤테이블_상품번호;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -59,7 +53,7 @@ class ItemUpdaterConcurrentTest extends TestSupplier {
                             try {
                                 String givenSessionId = UUID.randomUUID().toString();
                                 log.info("생성된 세션아이디={}", givenSessionId);
-                                getCartCreator().create(_카트_캠핑덕(givenSessionId, 1));
+                                getCartCreator().add(_카트_캠핑덕(givenSessionId, 1));
                                 log.info("재고처리 요청");
                                 getItemUpdater().update(givenSessionId);
 
