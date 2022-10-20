@@ -20,6 +20,10 @@ public class ItemSearcher {
         return itemSearcherRepository.findById(itemNo).orElseThrow();
     }
 
+    public List<Item> findByItemNo(List<Long> itemNos) {
+        return itemSearcherRepository.findByIdIn(itemNos);
+    }
+
 
 
 }
