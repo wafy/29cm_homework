@@ -6,6 +6,7 @@ import kr.co._29cm.homework.core.cart.command.CartCreator;
 import kr.co._29cm.homework.core.cart.command.CartDeleter;
 import kr.co._29cm.homework.core.cart.query.CartSearcher;
 import kr.co._29cm.homework.core.item.Item;
+import kr.co._29cm.homework.core.item.SoldOutException;
 import kr.co._29cm.homework.core.item.command.ItemCreator;
 import kr.co._29cm.homework.core.item.command.ItemUpdateStock;
 import kr.co._29cm.homework.core.item.command.ItemUpdater;
@@ -58,7 +59,21 @@ public class AssembleController {
             }
 
             if (isEmptyCheck(itemNo) && isEmptyCheck(quantity)) {
-                itemUpdater.update(sId);
+                try {
+                    itemUpdater.update(sId);
+                } catch (SoldOutException e) {
+                    System.out.println("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다.");
+                    System.out.println("입력(o[order]: 주문, q[quit]: 종료) :");
+                    String input = sc.nextLine();
+                    if (Objects.equals(input, InputType.ORDER.getValue())) {
+                        showItems();
+                        addCart(itemNoList, quantityList);
+                    } else if (Objects.equals(input, InputType.QUIT.getValue())) {
+                        System.out.println("고객님의 주문 감사합니다.");
+                        cartDeleter.deleteBySessionId(sId);
+                        System.exit(SpringApplication.exit(context));
+                    }
+                }
                 addCart(itemNoList, quantityList);
                 showCart();
                 showOrderCart();
