@@ -32,7 +32,6 @@ public class CsvCreator {
         CSVParser csvParser;
         List<Item> itemList = new ArrayList<>();
         try {
-            log.info("csv 파일을 가져옵니다.");
             csvParser = CSVParser.parse(path, StandardCharsets.UTF_8, csvFormat);
             for(CSVRecord record: csvParser) {
                 itemList.add(Item.builder()

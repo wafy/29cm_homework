@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.assemble;
+package kr.co._29cm.homework.controller.cart;
 
 import kr.co._29cm.homework.core.cart.Cart;
 import lombok.Getter;
@@ -16,6 +16,6 @@ public class CartResponseDto {
 
     @Override
     public String toString() {
-        return itemName + "= " + quantity +'\'';
+        return itemName + "- " + quantity+"개\n";
     }
 }

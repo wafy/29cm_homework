@@ -52,7 +52,7 @@ class ItemUpdaterConcurrentTest extends TestSupplier {
                             try {
                                 String givenSessionId = UUID.randomUUID().toString();
                                 log.info("생성된 세션아이디={}", givenSessionId);
-                                getCartCreator().add(_카트_캠핑덕(givenSessionId, 1));
+                                getCartCreator().create(_카트_캠핑덕(givenSessionId, 1));
                                 log.info("재고처리 요청");
                                 getItemUpdater().update(givenSessionId);
 

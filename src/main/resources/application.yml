@@ -8,14 +8,20 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        format_sql: true
-    show-sql: true
+        format_sql: false
+    show-sql: false
 
 
 #logging
+#logging:
+#  level:
+#    org.springframework.transaction.interceptor: TRACE
+#    org.springframework.jdbc: debug
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 logging:
   level:
-    org.springframework.transaction.interceptor: TRACE
-    org.springframework.jdbc: debug
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.transaction.interceptor: ERROR
+    org.springframework.jdbc: ERROR
+    org.hibernate.SQL: ERROR
+    org.hibernate.type.descriptor.sql.BasicBinder: ERROR

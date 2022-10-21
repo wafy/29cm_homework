@@ -26,7 +26,7 @@ class CartDeleterTest extends TestSupplier {
             @BeforeEach
             void init() {
                 givenSessionId = UUID.randomUUID().toString();
-                cart = getCartCreator().add(_카트_캠핑덕(givenSessionId));
+                cart = getCartCreator().create(_카트_캠핑덕(givenSessionId));
             }
 
             @Test

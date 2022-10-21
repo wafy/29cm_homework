@@ -30,9 +30,9 @@ class CartSearcherTest extends TestSupplier {
             void init() {
                 givenSessionId = UUID.randomUUID().toString();
                 getItemCreator().create();
-                getCartCreator().add(_카트_디오디너리(givenSessionId));
-                getCartCreator().add(_카트_디오디너리(givenSessionId));
-                getCartCreator().add(TestFixture._카트_캠핑덕(givenSessionId));
+                getCartCreator().create(_카트_디오디너리(givenSessionId));
+                getCartCreator().create(_카트_디오디너리(givenSessionId));
+                getCartCreator().create(TestFixture._카트_캠핑덕(givenSessionId));
             }
 
             @Test
@@ -64,9 +64,9 @@ class CartSearcherTest extends TestSupplier {
             void init() {
                 givenSessionId = UUID.randomUUID().toString();
                 getItemCreator().create();
-                getCartCreator().add(_카트_디오디너리(givenSessionId));
-                getCartCreator().add(_카트_디오디너리(givenSessionId));
-                getCartCreator().add(TestFixture._카트_캠핑덕(givenSessionId));
+                getCartCreator().create(_카트_디오디너리(givenSessionId));
+                getCartCreator().create(_카트_디오디너리(givenSessionId));
+                getCartCreator().create(TestFixture._카트_캠핑덕(givenSessionId));
             }
 
             @Test
@@ -93,8 +93,8 @@ class CartSearcherTest extends TestSupplier {
             void init() {
                 givenSessionId = UUID.randomUUID().toString();
                 getItemCreator().create();
-                getCartCreator().add(_카트_디오디너리(givenSessionId));
-                getCartCreator().add(_카트_디오디너리(givenSessionId));
+                getCartCreator().create(_카트_디오디너리(givenSessionId));
+                getCartCreator().create(_카트_디오디너리(givenSessionId));
             }
 
             @Test
@@ -121,8 +121,8 @@ class CartSearcherTest extends TestSupplier {
             void init() {
                 givenSessionId = UUID.randomUUID().toString();
                 getItemCreator().create();
-                getCartCreator().add(_초콜릿(givenSessionId));
-                getCartCreator().add(_초콜릿(givenSessionId));
+                getCartCreator().create(_초콜릿(givenSessionId));
+                getCartCreator().create(_초콜릿(givenSessionId));
             }
 
             @Test
