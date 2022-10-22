@@ -13,6 +13,8 @@ import kr.co._29cm.homework.core.item.SoldOutException;
 import kr.co._29cm.homework.core.item.command.ItemUpdater;
 import kr.co._29cm.homework.core.item.query.ItemSearcher;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.util.*;
@@ -30,6 +32,7 @@ public class CartController {
     private final CartSearcher cartSearcher;
     private final CartDeleter cartDeleter;
     private final ItemUpdater itemUpdater;
+    private final ApplicationContext context;
 
     Scanner sc = new Scanner(System.in);
 
@@ -45,10 +48,10 @@ public class CartController {
         String input = commandOrder();
         orderItemDisplay(input);
         Multimap<String, String> cartMap = ArrayListMultimap.create();
-        String sId = UUID.randomUUID().toString();
 
         boolean isProgress = true;
         while (isProgress) {
+            String sId = UUID.randomUUID().toString();
 
             String itemNo = commandItemNo();
             String quantity = commandQuantity();
@@ -63,12 +66,15 @@ public class CartController {
                     itemUpdater.update(sId);
                 } catch (SoldOutException e) {
                     System.out.println("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다.");
-                    isProgress = isContinueOrder();
-                    if (!isProgress) {
-                        cartMap = ArrayListMultimap.create();
-                        cartDeleter.deleteBySessionId(sId);
-                        break;
-                    }
+                    cartDeleter.deleteBySessionId(sId);
+                    cartMap = ArrayListMultimap.create();
+                    commandOrder();
+                    continue;
+//                    if (!isContinueOrder()) {
+//                        cartMap = ArrayListMultimap.create();
+//                        cartDeleter.deleteBySessionId(sId);
+//                        break;
+//                    }
                 }
                 showTempCart(sId);
                 showOrderCart(sId);
@@ -110,26 +116,33 @@ public class CartController {
     private String commandOrder() {
         System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
         String input = sc.nextLine();
-        while(true) {
-            if (!InputType.isContains(input)) {
-                System.out.println("주문은 o 종료는 q를 입려해주세요.");
-                System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
-                input = sc.nextLine();
-            } else {
-                break;
-            }
+        commandQuit(input);
+
+        if (!InputType.isOrder(input) && !InputType.isQuit(input)) {
+            System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
+            System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
+            input = sc.nextLine();
+            commandQuit(input);
         }
+
         return input;
+    }
+
+    private void commandQuit(String input) {
+        if (InputType.isQuit(input)) {
+            System.out.println("고객님의 주문 감사합니다.");
+            System.exit(SpringApplication.exit(context, () -> 0));
+        }
     }
 
     private boolean isContinueOrder() {
         String input = commandOrder();
-        return !Objects.equals(input.toLowerCase(), InputType.QUIT.getValue());
+        return InputType.isOrder(input);
     }
-    
+
 
     private void orderItemDisplay(String input) {
-        if (Objects.equals(input.toLowerCase(), InputType.ORDER.getValue())) {
+        if (InputType.isOrder(input)) {
             itemList();
         }
     }
