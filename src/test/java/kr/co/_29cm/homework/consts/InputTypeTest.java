@@ -11,49 +11,47 @@ import org.junit.jupiter.params.provider.ValueSource;
 class InputTypeTest {
 
     @Nested
-    @DisplayName("isNotContains 메서드는")
-    class Describe_isNotContains_method {
+    @DisplayName("isOrder 메서드는")
+    class Describe_isOrder_method {
 
         @Nested
-        @DisplayName("enum 에 정의된 inputType 값 요청이면")
+        @DisplayName("enum 에 정의된 inputType 주문 값 요청이면")
+        class Context_request_inputype {
+
+            @ParameterizedTest()
+            @ValueSource(strings = {
+                    "o",
+                    "O",
+                    "order",
+                    "ORDER"
+            })
+            @DisplayName("true 를 리턴한다")
+            void it_returns_true(String input) {
+                boolean result = InputType.isOrder(input);
+                Assertions.assertThat(result).isTrue();
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("isQuit 메서드는")
+    class Describe_isQuit_method {
+
+        @Nested
+        @DisplayName("enum 에 정의된 inputType 값 종료 요청이면")
         class Context_request_inputype {
 
             @ParameterizedTest()
             @ValueSource(strings = {
                     "q",
                     "Q",
-                    "o",
-                    "O"
+                    "quit",
+                    "QUIT"
             })
             @DisplayName("true 를 리턴한다")
             void it_returns_true(String input) {
-                boolean result = InputType.isContains(input);
+                boolean result = InputType.isQuit(input);
                 Assertions.assertThat(result).isTrue();
-            }
-        }
-
-
-        @Nested
-        @DisplayName("enum 에 정의되지 inputType 값 요청이면")
-        class Context_request_none_inputype {
-
-            @ParameterizedTest()
-            @ValueSource(strings = {
-                    "q1",
-                    "11334",
-                    "XXXXX",
-                    "~!@##$%",
-                    "09876553",
-                    "0",
-                    "Q1",
-                    "q1",
-                    "o4",
-                    "O5"
-            })
-            @DisplayName("false 를 리턴한다")
-            void it_returns_true(String input) {
-                boolean result = InputType.isContains(input);
-                Assertions.assertThat(result).isFalse();
             }
         }
     }

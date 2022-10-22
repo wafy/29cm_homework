@@ -1,25 +1,17 @@
 package kr.co._29cm.homework.axiom.consts;
 
 public enum InputType {
-    ORDER("o"), QUIT("q");
 
+    ORDER, O, QUIT, Q;
 
-    private final String value;
-
-    InputType(String value) {
-        this.value = value;
+    public static boolean isOrder(final String param) {
+        InputType input = InputType.valueOf(param.toUpperCase());
+        return InputType.O == input || InputType.ORDER == input;
     }
 
-    public String getValue() {
-        return value;
+    public static boolean isQuit(final String param) {
+        InputType input = InputType.valueOf(param.toUpperCase());
+        return InputType.Q == input || InputType.QUIT == input;
     }
 
-    public static boolean isContains(final String input) {
-        for (InputType inputType: InputType.values()) {
-            if(inputType.value.equals(input.toLowerCase())) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
