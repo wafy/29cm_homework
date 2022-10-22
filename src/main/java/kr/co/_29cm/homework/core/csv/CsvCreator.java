@@ -6,12 +6,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.io.FileUtils;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,13 +54,25 @@ public class CsvCreator {
     }
 
     public  File getCsvFile(String filename)  {
-        Resource resource = resourceLoader.getResource(filename);
         File csvFile;
+        Resource resource = new ClassPathResource(filename);
         try {
-            csvFile = resource.getFile();
+            InputStream inputStream = resource.getInputStream();
+            csvFile = convertInputStreamToFile(inputStream);
         } catch (IOException e) {
             throw new NotFoundCsvFileException("존재 하지 않는 csv 파일입니다.");
         }
         return csvFile;
+    }
+
+    public static File convertInputStreamToFile(InputStream in) throws IOException {
+        File tempFile = File.createTempFile(String.valueOf(in.hashCode()), ".tmp");
+        tempFile.deleteOnExit();
+        copyInputStreamToFile(in, tempFile);
+        return tempFile;
+    }
+
+    private static void copyInputStreamToFile(InputStream inputStream, File file) throws IOException {
+        FileUtils.copyInputStreamToFile(inputStream, file);
     }
 }

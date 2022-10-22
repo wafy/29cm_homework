@@ -13,17 +13,17 @@ spring:
   main:
     banner-mode: off
 
-#logging:
-#  level:
-#    org.springframework.transaction.interceptor: TRACE
-#    org.springframework.jdbc: debug
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 logging:
   level:
-    root: ERROR
-    org.springframework: ERROR
-    org.springframework.transaction.interceptor: ERROR
-    org.springframework.jdbc: ERROR
-    org.hibernate.SQL: ERROR
-    org.hibernate.type.descriptor.sql.BasicBinder: ERROR
+    org.springframework.transaction.interceptor: TRACE
+    org.springframework.jdbc: debug
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#logging:
+#  level:
+#    root: ERROR
+#    org.springframework: ERROR
+#    org.springframework.transaction.interceptor: ERROR
+#    org.springframework.jdbc: ERROR
+#    org.hibernate.SQL: ERROR
+#    org.hibernate.type.descriptor.sql.BasicBinder: ERROR
