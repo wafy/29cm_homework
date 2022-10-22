@@ -5,6 +5,7 @@ import kr.co._29cm.homework.core.cart.Cart;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -30,7 +31,8 @@ class CartDeleterTest extends TestSupplier {
             }
 
             @Test
-            @DisplayName("sessionId에 해당하는 카트데이터를 삭제하고 1을 리턴한다")
+            @DisplayName("sessionId에 해당하는 카트데이터가 삭제된다.")
+            @Transactional
             void it_delete() {
                 long result = getCartDeleter().deleteBySessionId(givenSessionId);
                 Assertions.assertThat(result).isEqualTo(1);
