@@ -13,4 +13,13 @@ public enum InputType {
     public String getValue() {
         return value;
     }
+
+    public static boolean isNotContains(final String input) {
+        for (InputType inputType: InputType.values()) {
+            if(inputType.value.equals(input.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
