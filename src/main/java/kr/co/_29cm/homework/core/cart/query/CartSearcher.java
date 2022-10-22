@@ -1,6 +1,5 @@
 package kr.co._29cm.homework.core.cart.query;
 
-import kr.co._29cm.homework.consts.MyConstants;
 import kr.co._29cm.homework.core.cart.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class CartSearcher {
         // 배송비
         int charge = getDeliveryCharge(orderAmount);
         // 결제 지금액 (주문금액 + 배송비)
-        int paymentAmount = orderAmount + MyConstants.DELIVERY_CHARGE;
+        int paymentAmount = orderAmount + charge;
 
         return new CartDto(cartList, orderAmount, paymentAmount, charge);
     }

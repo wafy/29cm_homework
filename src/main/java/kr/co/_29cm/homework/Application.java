@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @RequiredArgsConstructor
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class Application {
 
     private final CartController cartController;
     private final ItemCreateController itemCreateController;
@@ -18,9 +18,9 @@ public class Application implements CommandLineRunner {
         SpringApplication.run(Application.class, args);
     }
 
-    @Override
-    public void run(String... args) {
-        itemCreateController.create();
-        cartController.progress();
-    }
+//    @Override
+//    public void run(String... args) {
+//        itemCreateController.create();
+//        cartController.progress();
+//    }
 }

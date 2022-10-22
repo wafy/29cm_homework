@@ -55,7 +55,7 @@ class CartSearcherTest extends TestSupplier {
     class Describe_totalCart {
 
         @Nested
-        @DisplayName("3000원 상품 2개와 45_000 상품 1개가 장바구니에 담긴 요청이면")
+        @DisplayName("3_000원 상품 2개와 45_000 상품 1개가 장바구니에 담긴 요청이면")
         class Context_request_order {
 
             String givenSessionId;
@@ -70,7 +70,7 @@ class CartSearcherTest extends TestSupplier {
             }
 
             @Test
-            @DisplayName("카트에 담긴 상품 목록과 51000원이 계산된 결제금액이 리턴된다")
+            @DisplayName("카트에 담긴 상품 목록, 주문금액, 배송비가 미포함된 결제금액 51000원이 계산된 결제금액이 리턴된다")
             void it_returns_total_cart() {
                 CartDto cartDto = getCartSearcher().totalCart(givenSessionId);
                 Assertions.assertThat(cartDto.getCartList().size()).isEqualTo(3);
