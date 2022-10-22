@@ -47,7 +47,7 @@ public class Item {
      * @throws SoldOutException
      */
     public void decreaseStock(int quantity) {
-        if (this.stock - quantity < 0) {
+        if ((this.stock - quantity) < 0) {
             throw new SoldOutException("재고가 부족합니다.");
         }
         this.stock -= quantity;

@@ -1,13 +1,11 @@
 package kr.co._29cm.homework.consts;
 
+import kr.co._29cm.homework.axiom.consts.InputType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.Locale;
 
 @DisplayName("InputType class")
 class InputTypeTest {
@@ -29,7 +27,7 @@ class InputTypeTest {
             })
             @DisplayName("true 를 리턴한다")
             void it_returns_true(String input) {
-                boolean result = InputType.isNotContains(input);
+                boolean result = InputType.isContains(input);
                 Assertions.assertThat(result).isTrue();
             }
         }
@@ -54,7 +52,7 @@ class InputTypeTest {
             })
             @DisplayName("false 를 리턴한다")
             void it_returns_true(String input) {
-                boolean result = InputType.isNotContains(input);
+                boolean result = InputType.isContains(input);
                 Assertions.assertThat(result).isFalse();
             }
         }

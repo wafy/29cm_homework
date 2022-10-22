@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.consts;
+package kr.co._29cm.homework.axiom.consts;
 
 public enum InputType {
     ORDER("o"), QUIT("q");
@@ -14,7 +14,7 @@ public enum InputType {
         return value;
     }
 
-    public static boolean isNotContains(final String input) {
+    public static boolean isContains(final String input) {
         for (InputType inputType: InputType.values()) {
             if(inputType.value.equals(input.toLowerCase())) {
                 return true;
