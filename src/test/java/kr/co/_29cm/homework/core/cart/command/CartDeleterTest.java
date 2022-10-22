@@ -5,6 +5,7 @@ import kr.co._29cm.homework.core.cart.Cart;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
@@ -13,6 +14,7 @@ import static kr.co._29cm.homework.core.fixture.TestFixture._카트_캠핑덕;
 
 @DisplayName("CartDelete class")
 @SpringBootTest
+@ActiveProfiles("test")
 class CartDeleterTest extends TestSupplier {
 
     @Nested

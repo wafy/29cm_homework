@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import static kr.co._29cm.homework.core.fixture.TestFixture._캠핑덕_우드롤
 
 @DisplayName("ItemSearcher class")
 @SpringBootTest
+@ActiveProfiles("test")
 class ItemSearcherTest extends TestSupplier {
 
     @BeforeEach

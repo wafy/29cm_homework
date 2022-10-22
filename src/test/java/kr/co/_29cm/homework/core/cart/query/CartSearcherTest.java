@@ -6,6 +6,7 @@ import kr.co._29cm.homework.core.fixture.TestFixture;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import static kr.co._29cm.homework.core.fixture.TestFixture._카트_디오디너
 
 @DisplayName("CartSearcher class")
 @SpringBootTest
+@ActiveProfiles("test")
 class CartSearcherTest extends TestSupplier {
 
     @Nested

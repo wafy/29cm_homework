@@ -9,12 +9,14 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.io.File;
 import java.util.List;
 
 @DisplayName("CsvCreator class")
 @SpringBootTest
+@ActiveProfiles("test")
 class CsvCreatorTest {
 
     String _존재하는_csv_filename = "items_data.csv";

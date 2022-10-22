@@ -70,11 +70,6 @@ public class CartController {
                     cartMap = ArrayListMultimap.create();
                     commandOrder();
                     continue;
-//                    if (!isContinueOrder()) {
-//                        cartMap = ArrayListMultimap.create();
-//                        cartDeleter.deleteBySessionId(sId);
-//                        break;
-//                    }
                 }
                 showTempCart(sId);
                 showOrderCart(sId);

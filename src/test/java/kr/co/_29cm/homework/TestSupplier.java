@@ -17,8 +17,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+
+
 
 public abstract class TestSupplier implements ForTestOnly {
+
 
     @Autowired
     @Getter(AccessLevel.PROTECTED)
@@ -89,4 +94,7 @@ public abstract class TestSupplier implements ForTestOnly {
     protected void cartDeleteAll() {
         cartRepository.deleteAll();
     }
+
+
+
 }

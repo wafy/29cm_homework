@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import static kr.co._29cm.homework.core.fixture.TestFixture._카트_캠핑덕;
 
 @SpringBootTest
 @DisplayName("CartCreator class")
+@ActiveProfiles("test")
 class CartCreatorTest extends TestSupplier {
 
     @Nested

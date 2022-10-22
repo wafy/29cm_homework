@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
@@ -18,6 +19,7 @@ import static kr.co._29cm.homework.core.fixture.TestFixture._카트_캠핑덕;
 @Slf4j
 @DisplayName("ItemUpdate class")
 @SpringBootTest
+@ActiveProfiles("test")
 class ItemUpdaterConcurrentTest extends TestSupplier {
 
     @Nested
