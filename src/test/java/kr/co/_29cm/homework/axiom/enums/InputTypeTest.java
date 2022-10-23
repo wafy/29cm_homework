@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.consts;
+package kr.co._29cm.homework.axiom.enums;
 
 import kr.co._29cm.homework.axiom.enums.InputType;
 import org.assertj.core.api.Assertions;

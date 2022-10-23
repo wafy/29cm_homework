@@ -4,12 +4,12 @@ import kr.co._29cm.homework.core.cart.Cart;
 import lombok.Getter;
 
 @Getter
-public class CartResponseDto {
+public class cartItemReponse {
 
     private String itemName;
     private int quantity;
 
-    public CartResponseDto(Cart cart) {
+    public cartItemReponse(Cart cart) {
         this.itemName = cart.getItemName();
         this.quantity = cart.getQuantity();
     }

@@ -20,9 +20,9 @@ import org.springframework.stereotype.Controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static kr.co._29cm.homework.axiom.space.EmptyChecker.isEmptyCheck;
-import static kr.co._29cm.homework.axiom.space.EmptyChecker.isEmptyOrder;
-import static kr.co._29cm.homework.controller.cart.CartOrderResponseDto.displayCurrency;
+import static kr.co._29cm.homework.axiom.empty.EmptyChecker.isEmptyCheck;
+import static kr.co._29cm.homework.axiom.empty.EmptyChecker.isEmptyOrder;
+import static kr.co._29cm.homework.controller.cart.PaymentAmountResponse.displayCurrency;
 
 @Controller
 @RequiredArgsConstructor
@@ -175,7 +175,7 @@ public class CartController {
     }
 
     public void printPaymentAmount(String sId) {
-        CartOrderResponseDto orderDto = getCartItemList(sId);
+        PaymentAmountResponse orderDto = getCartItemList(sId);
         System.out.printf("주문금액: %s원 %n", displayCurrency(orderDto.getOrderAmount()));
         System.out.printf("배송비: %s원 %n", displayCurrency(orderDto.getDeliveryCharge()));
         System.out.println("--------------------");
@@ -184,15 +184,15 @@ public class CartController {
     }
 
     public void printCartItemList(String sId) {
-        List<CartResponseDto> cartResponseDtoList = cartSearcher.findBySessionId(sId).stream()
-                .map(CartResponseDto::new)
+        List<cartItemReponse> cartItemReponseList = cartSearcher.findBySessionId(sId).stream()
+                .map(cartItemReponse::new)
                 .collect(Collectors.toList());
         System.out.println("--------------------");
-        cartResponseDtoList.forEach(System.out::println);
+        cartItemReponseList.forEach(System.out::println);
         System.out.println("--------------------");
     }
 
-    public CartOrderResponseDto getCartItemList(String sId) {
-        return new CartOrderResponseDto(cartSearcher.totalCart(sId));
+    public PaymentAmountResponse getCartItemList(String sId) {
+        return new PaymentAmountResponse(cartSearcher.totalCart(sId));
     }
 }

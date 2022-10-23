@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.axiom.space;
+package kr.co._29cm.homework.axiom.empty;
 
 /**
  * 스페이스를 체크하여 TURE, FALSE 를 리턴합니다.
