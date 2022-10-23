@@ -40,9 +40,8 @@ public class CartController {
     /**
      * 상품 목록을 출력합니다.
      */
-    public void itemList() {
-        List<Item> itemList = itemSearcher.findAll();
-        itemList.forEach(System.out::print);
+    public List<Item> itemList() {
+        return itemSearcher.findAll();
     }
 
     public void progress() {
@@ -84,7 +83,7 @@ public class CartController {
         }
     }
 
-    private String commandItemNo() {
+    public String commandItemNo() {
         System.out.print("상품번호 : ");
         String itemNo = sc.nextLine();
         if (!isNumber(itemNo) && !isEmptyCheck(itemNo)) {
@@ -144,7 +143,7 @@ public class CartController {
 
     private void orderItemDisplay(String input) {
         if (InputType.isOrder(input)) {
-            itemList();
+            itemList().forEach(System.out::println);
         }
     }
 
