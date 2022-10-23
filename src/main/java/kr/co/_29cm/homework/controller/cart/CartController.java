@@ -75,9 +75,7 @@ public class CartController {
                 showOrderCart(sId);
                 cartMap = ArrayListMultimap.create();
                 cartDeleter.deleteBySessionId(sId);
-                if (!isContinueOrder()) {
-                    break;
-                }
+                commandOrder();
             }
         }
     }
@@ -113,20 +111,29 @@ public class CartController {
         String input = sc.nextLine();
         commandQuit(input);
 
-        if (!InputType.isOrder(input) && !InputType.isQuit(input)) {
+        try {
+            if (!InputType.isOrder(input) && !InputType.isQuit(input)) {
+                System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
+                System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
+                input = sc.nextLine();
+                commandQuit(input);
+            }
+        } catch (IllegalArgumentException e) {
             System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
-            System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
-            input = sc.nextLine();
-            commandQuit(input);
         }
 
         return input;
     }
 
     private void commandQuit(String input) {
-        if (InputType.isQuit(input)) {
-            System.out.println("고객님의 주문 감사합니다.");
-            System.exit(SpringApplication.exit(context, () -> 0));
+        try {
+            if (InputType.isQuit(input)) {
+                System.out.println("고객님의 주문 감사합니다.");
+                System.exit(SpringApplication.exit(context, () -> 0));
+            }
+        } catch (RuntimeException e) {
+            System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
+            commandOrder();
         }
     }
 
@@ -134,7 +141,6 @@ public class CartController {
         String input = commandOrder();
         return InputType.isOrder(input);
     }
-
 
     private void orderItemDisplay(String input) {
         if (InputType.isOrder(input)) {
@@ -180,6 +186,4 @@ public class CartController {
     private CartOrderResponseDto getCartItemList(String sId) {
         return new CartOrderResponseDto(cartSearcher.totalCart(sId));
     }
-
-
 }

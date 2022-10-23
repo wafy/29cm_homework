@@ -16,6 +16,6 @@ public class CartResponseDto {
 
     @Override
     public String toString() {
-        return itemName + "- " + quantity+"개\n";
+        return itemName + " - " + quantity+"개";
     }
 }
