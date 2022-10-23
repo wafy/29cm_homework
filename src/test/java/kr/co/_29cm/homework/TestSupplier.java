@@ -1,6 +1,7 @@
 package kr.co._29cm.homework;
 
 import kr.co._29cm.homework.axiom.target.ForTestOnly;
+import kr.co._29cm.homework.controller.cart.CartController;
 import kr.co._29cm.homework.core.cart.command.CartCreator;
 import kr.co._29cm.homework.core.cart.command.CartDeleter;
 import kr.co._29cm.homework.core.cart.command.CartRepository;
@@ -17,9 +18,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-
 
 
 public abstract class TestSupplier implements ForTestOnly {
@@ -53,6 +51,7 @@ public abstract class TestSupplier implements ForTestOnly {
     private CartDeleter cartDeleter;
     private ItemUpdater itemUpdater;
     private ItemUpdateStock itemUpdateStock;
+    private CartController cartController;
 
 
     protected CsvCreator getCsvCreator() {
