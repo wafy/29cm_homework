@@ -2,7 +2,7 @@ package kr.co._29cm.homework.controller.cart;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import kr.co._29cm.homework.axiom.consts.InputType;
+import kr.co._29cm.homework.axiom.enums.InputType;
 import kr.co._29cm.homework.axiom.number.NumberChecker;
 import kr.co._29cm.homework.core.cart.Cart;
 import kr.co._29cm.homework.core.cart.command.CartCreator;
@@ -69,18 +69,22 @@ public class CartController {
                     itemUpdater.update(sId);
                 } catch (SoldOutException e) {
                     System.out.println("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다.");
-                    cartDeleter.deleteBySessionId(sId);
-                    cartMap = ArrayListMultimap.create();
+                    cartMap = cartInitialization(sId);
                     commandOrder();
                     continue;
                 }
-                showTempCart(sId);
-                showOrderCart(sId);
-                cartMap = ArrayListMultimap.create();
-                cartDeleter.deleteBySessionId(sId);
+                printCartItemList(sId);
+                printPaymentAmount(sId);
+                cartMap = cartInitialization(sId);
                 commandOrder();
             }
         }
+    }
+
+    public Multimap<String, String> cartInitialization(String sId) {
+        Multimap<String, String> cartMap = ArrayListMultimap.create();
+        cartDeleter.deleteBySessionId(sId);
+        return cartMap;
     }
 
     public String commandItemNo() {
@@ -94,7 +98,7 @@ public class CartController {
         return itemNo;
     }
 
-    private String commandQuantity() {
+    public String commandQuantity() {
         System.out.print("수량 : ");
         String quantity = sc.nextLine();
         if (!isNumber(quantity) && !isEmptyCheck(quantity)) {
@@ -105,11 +109,11 @@ public class CartController {
         return quantity;
     }
 
-    private boolean isNumber(String param) {
+    public boolean isNumber(String param) {
         return NumberChecker.isNumber(param);
     }
 
-    private String commandOrder() {
+    public String commandOrder() {
         System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
         String input = sc.nextLine();
 
@@ -129,7 +133,7 @@ public class CartController {
         return input;
     }
 
-    private void commandQuit(String input) {
+    public void commandQuit(String input) {
         try {
             if (InputType.isQuit(input)) {
                 System.out.println("고객님의 주문 감사합니다.");
@@ -141,9 +145,9 @@ public class CartController {
         }
     }
 
-    private void orderItemDisplay(String input) {
+    public void orderItemDisplay(String input) {
         if (InputType.isOrder(input)) {
-            itemList().forEach(System.out::println);
+            itemList().forEach(System.out::print);
         }
     }
 
@@ -170,7 +174,7 @@ public class CartController {
         return cartMap;
     }
 
-    private void showOrderCart(String sId) {
+    public void printPaymentAmount(String sId) {
         CartOrderResponseDto orderDto = getCartItemList(sId);
         System.out.printf("주문금액: %s원 %n", displayCurrency(orderDto.getOrderAmount()));
         System.out.printf("배송비: %s원 %n", displayCurrency(orderDto.getDeliveryCharge()));
@@ -179,7 +183,7 @@ public class CartController {
         System.out.println("--------------------");
     }
 
-    private void showTempCart(String sId) {
+    public void printCartItemList(String sId) {
         List<CartResponseDto> cartResponseDtoList = cartSearcher.findBySessionId(sId).stream()
                 .map(CartResponseDto::new)
                 .collect(Collectors.toList());
@@ -188,7 +192,7 @@ public class CartController {
         System.out.println("--------------------");
     }
 
-    private CartOrderResponseDto getCartItemList(String sId) {
+    public CartOrderResponseDto getCartItemList(String sId) {
         return new CartOrderResponseDto(cartSearcher.totalCart(sId));
     }
 }

@@ -1,6 +1,6 @@
 package kr.co._29cm.homework.consts;
 
-import kr.co._29cm.homework.axiom.consts.InputType;
+import kr.co._29cm.homework.axiom.enums.InputType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

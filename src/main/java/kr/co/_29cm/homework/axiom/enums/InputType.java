@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.axiom.consts;
+package kr.co._29cm.homework.axiom.enums;
 
 public enum InputType {
 
