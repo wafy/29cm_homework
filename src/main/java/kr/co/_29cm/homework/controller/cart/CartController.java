@@ -20,7 +20,8 @@ import org.springframework.stereotype.Controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static kr.co._29cm.homework.axiom.space.Emptyhecker.isEmptyCheck;
+import static kr.co._29cm.homework.axiom.space.EmptyChecker.isEmptyCheck;
+import static kr.co._29cm.homework.axiom.order.InputCommandChecker.isValidOrder;
 import static kr.co._29cm.homework.controller.cart.CartOrderResponseDto.displayCurrency;
 
 @Controller
@@ -56,7 +57,7 @@ public class CartController {
             String itemNo = commandItemNo();
             String quantity = commandQuantity();
 
-            if (!isEmptyCheck(itemNo) && !isEmptyCheck(quantity)) {
+            if (isValidOrder(itemNo, quantity)) {
                 cartMap.put(itemNo, quantity);
             }
 
