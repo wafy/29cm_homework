@@ -20,9 +20,8 @@ import org.springframework.stereotype.Controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static kr.co._29cm.homework.axiom.order.InputCommandChecker.isEmptyOrder;
 import static kr.co._29cm.homework.axiom.space.EmptyChecker.isEmptyCheck;
-import static kr.co._29cm.homework.axiom.order.InputCommandChecker.isValidOrder;
+import static kr.co._29cm.homework.axiom.space.EmptyChecker.isEmptyOrder;
 import static kr.co._29cm.homework.controller.cart.CartOrderResponseDto.displayCurrency;
 
 @Controller
@@ -58,7 +57,7 @@ public class CartController {
             String itemNo = commandItemNo();
             String quantity = commandQuantity();
 
-            if (isValidOrder(itemNo, quantity)) {
+            if (!isEmptyCheck(itemNo) && !isEmptyCheck(quantity)) {
                 cartMap.put(itemNo, quantity);
             }
 
@@ -111,7 +110,6 @@ public class CartController {
     private String commandOrder() {
         System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
         String input = sc.nextLine();
-        commandQuit(input);
 
         try {
             if (!InputType.isOrder(input) && !InputType.isQuit(input)) {
@@ -119,11 +117,13 @@ public class CartController {
                 System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
                 input = sc.nextLine();
                 commandQuit(input);
+            } else  if (InputType.isQuit(input)) {
+                System.out.println("고객님의 주문 감사합니다.");
+                System.exit(SpringApplication.exit(context, () -> 0));
             }
         } catch (IllegalArgumentException e) {
             System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
         }
-
         return input;
     }
 
@@ -139,16 +139,20 @@ public class CartController {
         }
     }
 
-    private boolean isContinueOrder() {
-        String input = commandOrder();
-        return InputType.isOrder(input);
+    private void orderItemDisplay(String input) {
+        try {
+            if (InputType.isOrder(input)) {
+                itemList();
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
+            if (InputType.isOrder(input)) {
+                itemList();
+            }
+        }
+
     }
 
-    private void orderItemDisplay(String input) {
-        if (InputType.isOrder(input)) {
-            itemList();
-        }
-    }
 
     private Multimap<String, String> createOrder(Multimap<String, String> cartMap, String sId) {
         final Iterator<String> iterator = cartMap.keySet().iterator();
@@ -161,7 +165,12 @@ public class CartController {
                     .boxed()
                     .reduce(0, Integer::sum);
 
-            Item savedItem = itemSearcher.findByItemNo(Long.parseLong(itemNo));
+            Item savedItem = null;
+            try {
+                savedItem = itemSearcher.findByItemNo(Long.parseLong(itemNo));
+            } catch (IllegalArgumentException e) {
+                System.out.println("존재하지 않는 상품번호는 제외 됩니다.");
+            }
 
             cartCreator.create(Cart.of(sId, savedItem.getItemNo(), savedItem.getItemName(), savedItem.getPrice(), quantity));
         }
