@@ -17,10 +17,21 @@ public class InputCommandChecker {
      */
     public static boolean isValidOrder(String itemNo, String quantity) {
         if (!isEmptyCheck(itemNo) && !isEmptyCheck(quantity)) {
-            return false;
+            return true;
         } else if (!isEmptyCheck(itemNo) && isEmptyCheck(quantity)) {
             return false;
         }
-        return true;
+        return false;
+    }
+
+    /**
+     * 상품번호 스페이스, 수량 스페이스 true
+     * 그외 false
+     * @param itemNo 상품번호
+     * @param quantity 수량
+     * @return 유효할 경우 true
+     */
+    public static boolean isEmptyOrder(String itemNo, String quantity) {
+        return (isEmptyCheck(itemNo) && isEmptyCheck(quantity));
     }
 }

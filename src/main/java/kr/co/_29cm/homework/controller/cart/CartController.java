@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static kr.co._29cm.homework.axiom.order.InputCommandChecker.isEmptyOrder;
 import static kr.co._29cm.homework.axiom.space.EmptyChecker.isEmptyCheck;
 import static kr.co._29cm.homework.axiom.order.InputCommandChecker.isValidOrder;
 import static kr.co._29cm.homework.controller.cart.CartOrderResponseDto.displayCurrency;
@@ -61,7 +62,7 @@ public class CartController {
                 cartMap.put(itemNo, quantity);
             }
 
-            if (isEmptyCheck(itemNo) && isEmptyCheck(quantity)) {
+            if (isEmptyOrder(itemNo, quantity)) {
                 try {
                     createOrder(cartMap, sId);
                     itemUpdater.update(sId);
@@ -154,6 +155,7 @@ public class CartController {
         while (iterator.hasNext()) {
             String itemNo = iterator.next();
             int quantity = cartMap.get(itemNo).stream()
+                    .filter(Objects::nonNull)
                     .map(String::trim)
                     .mapToInt(Integer::parseInt)
                     .boxed()
