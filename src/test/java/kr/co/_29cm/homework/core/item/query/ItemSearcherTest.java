@@ -66,6 +66,7 @@ class ItemSearcherTest extends TestSupplier {
     @Nested
     @DisplayName("findById 메서드는")
     class Describe_findById_in_method {
+        List<Long> givenItemNos = new ArrayList<>();
 
         @Nested
         @DisplayName("배열로 itemNos로 조회 명령 이면")
@@ -74,12 +75,23 @@ class ItemSearcherTest extends TestSupplier {
             @Test
             @DisplayName("itemNo에 해당되는 데이터를 리턴한다")
             void it_returns_items() {
-                List<Long> givenItemNos = new ArrayList<>();
                 givenItemNos.add(_캠핑덕_우드롤테이블_상품번호);
                 givenItemNos.add(_디오디너리_데일리_세트_상품번호);
                 List<Item> resultList = getItemSearcher().findByItemNo(givenItemNos);
                 Assertions.assertThat(resultList.size()).isEqualTo(2);
+            }
+        }
 
+        @Nested
+        @DisplayName("존재하지 않는 상품번호 조회 명령이면")
+        class Context_request_none_exist_itemNos {
+
+            @Test
+            @DisplayName("예외를 던진다")
+            void it_throws() {
+                Long _존재하지않는_상품번호 = 00000000L;
+                Assertions.assertThatThrownBy(() ->
+                        getItemSearcher().findByItemNo(_존재하지않는_상품번호)).isInstanceOf(IllegalArgumentException.class);
             }
         }
     }

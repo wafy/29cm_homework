@@ -17,7 +17,9 @@ public class ItemSearcher {
     }
 
     public Item findByItemNo(Long itemNo) {
-        return itemSearcherRepository.findById(itemNo).orElseThrow();
+        return itemSearcherRepository.findById(itemNo).orElseThrow(() -> {
+            throw new IllegalArgumentException("존재하지 않는 상품 번호입니다.");
+        });
     }
 
     public List<Item> findByItemNo(List<Long> itemNos) {

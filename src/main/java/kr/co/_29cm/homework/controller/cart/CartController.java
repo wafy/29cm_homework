@@ -64,6 +64,9 @@ public class CartController {
             if (isEmptyOrder(itemNo, quantity)) {
                 try {
                     createOrder(cartMap, sId);
+                    if (cartMap.size() == 0) {
+                        continue;
+                    }
                     itemUpdater.update(sId);
                 } catch (SoldOutException e) {
                     System.out.println("SoldOutException 발생. 주문한 상품량이 재고량보다 큽니다.");
@@ -117,7 +120,7 @@ public class CartController {
                 System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
                 input = sc.nextLine();
                 commandQuit(input);
-            } else  if (InputType.isQuit(input)) {
+            } else if (InputType.isQuit(input)) {
                 System.out.println("고객님의 주문 감사합니다.");
                 System.exit(SpringApplication.exit(context, () -> 0));
             }
@@ -140,17 +143,9 @@ public class CartController {
     }
 
     private void orderItemDisplay(String input) {
-        try {
-            if (InputType.isOrder(input)) {
-                itemList();
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
-            if (InputType.isOrder(input)) {
-                itemList();
-            }
+        if (InputType.isOrder(input)) {
+            itemList();
         }
-
     }
 
 
@@ -165,14 +160,13 @@ public class CartController {
                     .boxed()
                     .reduce(0, Integer::sum);
 
-            Item savedItem = null;
             try {
-                savedItem = itemSearcher.findByItemNo(Long.parseLong(itemNo));
+               Item savedItem = itemSearcher.findByItemNo(Long.parseLong(itemNo));
+                cartCreator.create(Cart.of(sId, savedItem.getItemNo(), savedItem.getItemName(), savedItem.getPrice(), quantity));
             } catch (IllegalArgumentException e) {
                 System.out.println("존재하지 않는 상품번호는 제외 됩니다.");
+                iterator.remove();
             }
-
-            cartCreator.create(Cart.of(sId, savedItem.getItemNo(), savedItem.getItemName(), savedItem.getPrice(), quantity));
         }
         return cartMap;
     }
