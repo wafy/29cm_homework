@@ -16,7 +16,6 @@ public class ItemCreator {
 
     private static final String CSV_FILE_NAME = "items_data.csv";
 
-//    @Transactional
     public void create() {
         List<Item> itemList = loadCsvItem();
         itemRepository.saveAll(itemList);
