@@ -2,7 +2,7 @@ package kr.co._29cm.homework.controller.cart;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import kr.co._29cm.homework.axiom.enums.InputType;
+import kr.co._29cm.homework.axiom.enums.CommandType;
 import kr.co._29cm.homework.axiom.number.NumberChecker;
 import kr.co._29cm.homework.core.cart.Cart;
 import kr.co._29cm.homework.core.cart.command.CartCreator;
@@ -118,24 +118,26 @@ public class CartController {
         String input = sc.nextLine();
 
         try {
-            if (!InputType.isOrder(input) && !InputType.isQuit(input)) {
+            if (!CommandType.isOrder(input) && !CommandType.isQuit(input)) {
                 System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
                 System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
                 input = sc.nextLine();
                 commandQuit(input);
-            } else if (InputType.isQuit(input)) {
+            } else if (CommandType.isQuit(input)) {
                 System.out.println("고객님의 주문 감사합니다.");
                 System.exit(SpringApplication.exit(context, () -> 0));
             }
         } catch (IllegalArgumentException e) {
             System.out.println("주문은 o 종료는 q[quit]를 입력 해주세요.");
+            System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
+            input = sc.nextLine();
         }
         return input;
     }
 
     public void commandQuit(String input) {
         try {
-            if (InputType.isQuit(input)) {
+            if (CommandType.isQuit(input)) {
                 System.out.println("고객님의 주문 감사합니다.");
                 System.exit(SpringApplication.exit(context, () -> 0));
             }
@@ -146,7 +148,7 @@ public class CartController {
     }
 
     public void orderItemDisplay(String input) {
-        if (InputType.isOrder(input)) {
+        if (CommandType.isOrder(input)) {
             itemList().forEach(System.out::print);
         }
     }

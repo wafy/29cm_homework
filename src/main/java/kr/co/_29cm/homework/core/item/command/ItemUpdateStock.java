@@ -31,7 +31,7 @@ public class ItemUpdateStock {
             } catch (SoldOutException e) {
                 log.info("재고 부족 [상품번호]={} [현재재고]={}, [차감후 재고]={}",
                         findItem.getItemNo(), findItem.getStock(), stock);
-                throw new SoldOutException(e.getMessage());
+                throw new SoldOutException(e.getMessage(), findItem.getItemNo(), itemNoAndStock.getQuantity());
             }
         }
     }

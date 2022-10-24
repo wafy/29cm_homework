@@ -1,6 +1,5 @@
 package kr.co._29cm.homework.axiom.enums;
 
-import kr.co._29cm.homework.axiom.enums.InputType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -8,7 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("InputType class")
-class InputTypeTest {
+class CommandTypeTest {
 
     @Nested
     @DisplayName("isOrder 메서드는")
@@ -27,7 +26,7 @@ class InputTypeTest {
             })
             @DisplayName("true 를 리턴한다")
             void it_returns_true(String input) {
-                boolean result = InputType.isOrder(input);
+                boolean result = CommandType.isOrder(input);
                 Assertions.assertThat(result).isTrue();
             }
         }
@@ -50,7 +49,7 @@ class InputTypeTest {
             })
             @DisplayName("true 를 리턴한다")
             void it_returns_true(String input) {
-                boolean result = InputType.isQuit(input);
+                boolean result = CommandType.isQuit(input);
                 Assertions.assertThat(result).isTrue();
             }
         }

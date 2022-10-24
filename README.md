@@ -38,7 +38,8 @@
 * BDD 형식으로 테스트 코드를 작성하였습니다.
   * 대상 / 상황 / 행동 으로 구분하여 테스트 코드 작성 
   * 계층형 구조 테스트 코드 
-  ![image](https://user-images.githubusercontent.com/310264/197374898-c1a5a52c-a2ff-4f77-bc5f-ede63321656f.png)
+  ![image](https://user-images.githubusercontent.com/310264/197439487-5c543144-5c5c-4057-a9a2-d5366f9ac2d0.png)
+  
 
 ## 동시성테스트코드 클래스명
  - 비관적락(for update)으로 구현
